@@ -1,5 +1,7 @@
+## Setting up the VirtualEnv with Brew
 Here we will use Homebrew as my package manager for Unix utilities on OSX.
 Homebrew seems to install less dependencies than Macports or Fink.
+
 Also, most of my Python development has settled on Python 2.7 and occasionally Python 3 for tasks that don’t require external libraries that only run on Python 2.x. So for me, an easier install with less gunk on my hard drive is a fair trade for losing the latest updates to Python 2.4, 2.5, and 2.6.
 
 In this post, I’ll describe my setup.
@@ -7,14 +9,21 @@ In this post, I’ll describe my setup.
 The first thing to do is uninstall Macports if present.
 Homebrew has fairly up-to-date versions all of the Unix packages I use on a daily basis, including git, subversion, bash_completion, Python, Qt, PyQt, and their supporting libraries. As such, I don’t need Macports taking up additional hard drive space and potentially causing conflicts with Homebrew’s packages.
 
-Next, I installed (or update) pip, virtualenv, and virtualenvwrapper in my Mac’s default Python (2.7.10 on Mac Capitain 11) via easy_install (or pip itself). These are usually the only 3rd-party Python packages I install in the system Python’s site-packages folder.
+Now lets check which is the python we have:
+```$ which python```
+
+Next, I installed (or update) pip, virtualenv, and virtualenvwrapper in my Mac’s default Python (2.7.10 on Mac Capitain 11) via easy_install (or pip itself).
+```$ easy_install virtualenvwrapper```
+OR
+```pip install virtualenvwrapper```.
+
+These are usually the only 3rd-party Python packages I install in the system Python’s site-packages folder.
 
 ```brew update```
 (If the update fails due to read only access on /usr/local folder, add the following code to .bash_profile file:
 alias fix_brew='sudo chown -R $USER /usr/local/'
 Source the bash_profile file and call: source .bash_profile
 Now on terminal call : fix_brew )
-
 
 
 Next, I remove the Macports configuration from my bash ~/.bash_profile and replace it with the following:
@@ -45,9 +54,14 @@ export PYTHONPATH=/usr/local/lib/python:$PYTHONPATH
 ```
 The first couple of sections set up the Terminal for bash completion and virtualenvwrapper commands. The third section sets up my virtualenv aliases: one for the default system python, one for Python 2.7, one for Python 2.7 and PyQt, and another for Python 3.2. Python 3 support was added to virtualenv in version 1.6, so you no longer need to jump through hoops to get it working with Pythyon 2.x.
 
+## Using the VirtualEnv
+We use  ```mkve``` in .bash_profile to create the virtual env for python 2.7. Likewise ```mkve3``` for python 3.5.
+
+Also, ```workon``` to switch to python virtual environment.
+
 Now using the virtualenv:
 ```
-$ mkve27 py27
+$ mkve py27
 Running virtualenv with interpreter /opt/local/bin/python2.7
 New python executable in py27/bin/python
 Installing setuptools............................done.
